@@ -9,13 +9,13 @@ Code to train the models described in the paper "Prediction under Uncertainty wi
 
 ### Data:
 
-We also provide all the datasets in one big file which can be downloaded here:
+We provide all the datasets in one big file which can be downloaded here:
 
 ```
 url
 ```
 
-Then extract it:
+Extract it with:
 
 ```
 tar -xvf een_data.tar.gz
@@ -33,14 +33,14 @@ http://ashvin.me/pokebot-website/
 The first step is to train a deterministic network. This can be done with the following script
 
 ```
-python train_g_network.py -task breakout -datapath /path/to/your/data
+python train_g_network.py -datapath /path/to/your/data -task breakout -save_dir /where/to/save/
 ```
 
 You can change the task option to any of the other tasks. 
 Once this is trained, you can train the latent variable network with the desired number of latent variables by running:
 
 ```
-python train_f_network.py -task breakout -n_latent 2 -datapath /path/to/your/data
+python train_f_network.py -datapath /path/to/your/data -task breakout -n_latent 2 -save_dir /where/to/save/
 ```
 
 This script automatically loads the deterministic model weights from the folder specified with the -save_dir option, so make sure it is the same as in the previous script. 
@@ -53,6 +53,6 @@ After training, you can run the script visualize.py which will generate frame pr
 python visualize.py -save_dir /path/to/models/
 ```
 
-This will create a new directory for each model in the folder with the same name as the model file with '.viz' appended to it. This will contain one subfolder per set of conditioning frames, each with several generations using different z vectors. These are also saves as MP4 movie files for easier viewing. 
+This will create a new directory for each model in the folder with the same name as the model file with '.viz' appended to it. This will contain one subfolder per set of conditioning frames, each with several generations using different z vectors. These are also saved as MP4 movie files for easier viewing. 
 
 
