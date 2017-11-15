@@ -1,6 +1,6 @@
 # Prediction under Uncertainty with Error-Encoding Networks
 
-Code to train the models described in the paper "Prediction under Uncertainty with Error-Encoding Networks". 
+Code to train the models described in the paper "Prediction under Uncertainty with Error-Encoding Networks", by Mikael Henaff, Junbo Zhao and Yann LeCun. 
 
 
 
@@ -15,7 +15,7 @@ We provide all the datasets in one big file which can be downloaded [here](<http
 tar -xvf een_data.tar.gz
 ```
 
-You can also download the Poke dataset from the author's website [here](<http://ashvin.me/pokebot-website/>). If you use the Poke or TORCS dataset in a paper, please cite the original work [1](<https://arxiv.org/abs/1606.07419>)[2](<https://arxiv.org/abs/1605.06450>). 
+You can also download the Poke dataset from the author's website [here](<http://ashvin.me/pokebot-website/>). If you use the Poke or TORCS dataset in a paper, please cite the original work [[1]](<https://arxiv.org/abs/1606.07419>)[[2]](<https://arxiv.org/abs/1605.06450>). 
 
 
 ### Training
