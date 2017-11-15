@@ -3,7 +3,7 @@
 Code to train the models described in the paper "Prediction under Uncertainty with Error-Encoding Networks", by Mikael Henaff, Junbo Zhao and Yann LeCun. 
 
 
-![alt text](Model_Diagram.pdf)
+![Diagram](Model_Diagram.png)
 
 ## Usage:
 
