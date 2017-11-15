@@ -9,19 +9,13 @@ Code to train the models described in the paper "Prediction under Uncertainty wi
 
 ### Data:
 
-We provide all the datasets in one big file which can be downloaded [here](<https://drive.google.com/file/d/1Dzqv39yZ691i_F17qxxkPv4QA4Gayrxl/view?usp=sharing>). 
-
-Extract it with:
+We provide all the datasets in one big file which can be downloaded [here](<https://drive.google.com/file/d/1Dzqv39yZ691i_F17qxxkPv4QA4Gayrxl/view?usp=sharing>). After downloading, you can extract it with:
 
 ```
 tar -xvf een_data.tar.gz
 ```
 
-You can also download the Poke and TORCS datasets from the author's websites:
-
-```
-http://ashvin.me/pokebot-website/
-```
+You can also download the Poke dataset from the author's website [here](<http://ashvin.me/pokebot-website/>). If you use the Poke or TORCS dataset in a paper, please cite the original work [1](<https://arxiv.org/abs/1606.07419>)[2](<https://arxiv.org/abs/1605.06450>). 
 
 
 ### Training
