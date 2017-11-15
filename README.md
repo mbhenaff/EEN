@@ -35,6 +35,8 @@ python train_f_network.py -datapath /path/to/your/data -task breakout -n_latent 
 
 This script automatically loads the deterministic model weights from the folder specified with the -save_dir option, so make sure it is the same as in the previous script. 
 
+To train on a new dataset, include a data loader file in the 'dataloaders' folder and add an entry to the file config.json specifying the image width, height, number of channels and so on. You will also need to specify the size of the hidden representation in the field 'phi_fc_size', which will ensure that the fully-connected part of the phi function is the right size. 
+
 ### Visualization
 
 After training, you can run the script visualize.py which will generate frame predictions for different z vectors. 
