@@ -9,19 +9,19 @@ Code to train the models described in the paper "Prediction under Uncertainty wi
 
 ### Data:
 
-First you will need the data. The Poke dataset can be downloaded from the author's website:
+First you will need the data. The Poke dataset can be downloaded from the author's websites:
 
 ```
 http://ashvin.me/pokebot-website/
 ```
-The Atari and Flappy Bird datasets can be downloaded from the following links:
+
+We also provide all the datasets in one big file which can be downloaded here:
 
 ```
-https://drive.google.com/open?id=1E6tH6fctOQhObs004IkyM8UmrTkFqWmx
-https://drive.google.com/file/d/1hMuk5zRM5BnUt_3fNTHR7cohxSgiVnBd/view?usp=sharing
+url
 ```
 
-You will then want to specify the dataset paths in the file config.json. This contains the dataset parameters for each task such as image size, number of frames to condition on, etc. If you want to try the method on a new dataset, just add an entry to that file. The script data_test.py will check if the data has been loaded properfly and will display some images.
+Untar the file and modify the paths in train_g_model.py and train_f_model.py to point to the directory where the data is stored.
 
 ### Training
 
@@ -31,7 +31,7 @@ The first step is to train a deterministic network. This can be done with the fo
 python train_g_network.py -task breakout
 ```
 
-We will want to initialize the latent variable network with the weights of the deterministic one. 
+You can change the task option to any of the other tasks. 
 Once this is trained, you can train the latent variable network with the desired number of latent variables by running:
 
 ```

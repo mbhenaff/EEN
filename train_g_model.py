@@ -10,17 +10,17 @@ import models, utils
 
 # Training settings
 parser = argparse.ArgumentParser()
-parser.add_argument('-task', type=str, default='poke')
+parser.add_argument('-task', type=str, default='poke', help='breakout | seaquest | flappy | poke | driving')
 parser.add_argument('-seed', type=int, default=1)
 parser.add_argument('-model', type=str, default='baseline-3layer')
 parser.add_argument('-batch_size', type=int, default=64)
-parser.add_argument('-nfeature', type=int, default=64)
-parser.add_argument('-lrt', type=float, default=0.0005)
+parser.add_argument('-nfeature', type=int, default=64, help='number of feature maps in convnet')
+parser.add_argument('-lrt', type=float, default=0.0005, help='learning rate')
 parser.add_argument('-epoch_size', type=int, default=500)
-parser.add_argument('-loss', type=str, default='l2')
+parser.add_argument('-loss', type=str, default='l2', help='l1 | l2')
 parser.add_argument('-gpu', type=int, default=1)
 parser.add_argument('-datapath', type=str, default='/misc/vlgscratch4/LecunGroup/datasets/atari_data/release/')
-parser.add_argument('-save_dir', type=str, default='/misc/vlgscratch4/LecunGroup/mbhenaff/release_results_l1/')
+parser.add_argument('-save_dir', type=str, default='./results/')
 opt = parser.parse_args()
 
 torch.manual_seed(opt.seed)
@@ -122,5 +122,5 @@ if __name__ == '__main__':
         criterion = nn.MSELoss().cuda()
     print('training...')
     utils.log(opt.model_filename + '.log', '[training]')
-    train(200)
+    train(500)
 
