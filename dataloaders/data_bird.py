@@ -39,8 +39,8 @@ class ImageLoader(object):
                     r_img = misc.imresize(img, (self.h, self.w))
                     fd_datalist.append(r_img)
 
-                pdb.set_trace()
                 fd_datalist = numpy.transpose(numpy.array(fd_datalist), (0, 3, 1, 2))
+                print('saving images as numpy array: {}'.format(os.path.join(abs_fdname, "presave.npy"), fd_datalist))
                 numpy.save(os.path.join(abs_fdname, "presave.npy"), fd_datalist)
             else:
                 raise ValueError
