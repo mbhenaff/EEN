@@ -1,6 +1,6 @@
 # Prediction under Uncertainty with Error-Encoding Networks
 
-Code to train the models described in the paper "Prediction under Uncertainty with Error-Encoding Networks", by Mikael Henaff, Junbo Zhao and Yann LeCun. 
+Code to train the models described in the paper [Prediction under Uncertainty with Error-Encoding Networks](<https://arxiv.org/abs/1711.04994>), by Mikael Henaff, Junbo Zhao and Yann LeCun. 
 
 
 ![Diagram](img/Model_Diagram.png)
