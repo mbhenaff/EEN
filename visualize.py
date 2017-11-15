@@ -16,9 +16,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-task', type=str, default='poke')
 parser.add_argument('-batch_size', type=int, default=64)
 parser.add_argument('-gpu', type=int, default=1)
-parser.add_argument('-datapath', type=str, default='/misc/vlgscratch4/LecunGroup/datasets/')
+parser.add_argument('-datapath', type=str, default='./data/')
 parser.add_argument('-save_dir', type=str,
-                     default='/misc/vlgscratch4/LecunGroup/mbhenaff/release_results_l1/')
+                     default='./results/')
 opt = parser.parse_args()
 torch.cuda.set_device(opt.gpu)
 

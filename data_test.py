@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 # tester for dataloader
 parser = argparse.ArgumentParser()
 parser.add_argument('-task', type=str, default='poke', help='breakout | seaquest | flappy | poke | driving')
-parser.add_argument('-datapath', type=str, default='/misc/vlgscratch4/LecunGroup/datasets/atari_data/release/')
+parser.add_argument('-datapath', type=str, default='./data/')
 opt = parser.parse_args()
 
 data_config = utils.read_config('config.json').get(opt.task)
