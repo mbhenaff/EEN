@@ -19,7 +19,7 @@ parser.add_argument('-lrt', type=float, default=0.0005, help='learning rate')
 parser.add_argument('-epoch_size', type=int, default=500)
 parser.add_argument('-loss', type=str, default='l2', help='l1 | l2')
 parser.add_argument('-gpu', type=int, default=1)
-parser.add_argument('-datapath', type=str, default='/misc/vlgscratch4/LecunGroup/datasets/een_data/')
+parser.add_argument('-datapath', type=str, default='./data/', help='data folder')
 parser.add_argument('-save_dir', type=str, default='./results/', help='where to save the models')
 opt = parser.parse_args()
 
