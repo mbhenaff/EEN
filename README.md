@@ -23,14 +23,14 @@ You can also download the Poke dataset from the author's website [here](<http://
 The first step is to train a deterministic network. This can be done with the following script
 
 ```
-python train_g_network.py -datapath /path/to/your/data -task breakout -save_dir /where/to/save/
+python train_g_model.py -datapath /path/to/your/data -task breakout -save_dir /where/to/save/
 ```
 
 You can change the task option to any of the other tasks. 
 Once this is trained, you can train the latent variable network with the desired number of latent variables by running:
 
 ```
-python train_f_network.py -datapath /path/to/your/data -task breakout -n_latent 2 -save_dir /where/to/save/
+python train_f_model.py -datapath /path/to/your/data -task breakout -n_latent 2 -save_dir /where/to/save/
 ```
 
 This script automatically loads the deterministic model weights from the folder specified with the -save_dir option, so make sure it is the same as in the previous script. 
