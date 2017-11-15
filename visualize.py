@@ -1,5 +1,7 @@
 import argparse, pdb, os, numpy, glob, imp, imageio
 from datetime import datetime
+import matplotlib as mpi
+mpi.use('Agg')
 import matplotlib.pyplot as plt
 import torch, torchvision
 import torch.nn as nn
@@ -14,7 +16,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-task', type=str, default='poke')
 parser.add_argument('-batch_size', type=int, default=64)
 parser.add_argument('-gpu', type=int, default=1)
-parser.add_argument('-datapath', type=str, default='/misc/vlgscratch4/LecunGroup/datasets/atari_data/release/')
+parser.add_argument('-datapath', type=str, default='/misc/vlgscratch4/LecunGroup/datasets/')
 parser.add_argument('-save_dir', type=str,
                      default='/misc/vlgscratch4/LecunGroup/mbhenaff/release_results_l1/')
 opt = parser.parse_args()
@@ -69,7 +71,7 @@ for mfile in glob.glob(opt.save_dir + '/*model=baseline*.model'):
     model = load_model(mfile)
 
     # make folder to save visualizations
-    save_dir = mfile + '.viz' 
+    save_dir = mfile + '.viz'
     if not os.path.isdir(save_dir):
         os.system('mkdir -p ' + save_dir)
 
