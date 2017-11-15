@@ -14,6 +14,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-task', type=str, default='poke')
 parser.add_argument('-batch_size', type=int, default=64)
 parser.add_argument('-gpu', type=int, default=1)
+parser.add_argument('-datapath', type=str, default='/misc/vlgscratch4/LecunGroup/datasets/atari_data/release/')
 parser.add_argument('-save_dir', type=str,
                      default='/misc/vlgscratch4/LecunGroup/mbhenaff/release_results_l1/')
 opt = parser.parse_args()
@@ -22,6 +23,7 @@ torch.cuda.set_device(opt.gpu)
 # load data and get dataset-specific parameters
 data_config = utils.read_config('config.json').get(opt.task)
 data_config['batchsize'] = opt.batch_size
+data_config['datapath'] = '{}/{}'.format(opt.datapath, data_config['datapath'])
 opt.ncond = data_config['ncond']
 opt.npred = data_config['npred']
 opt.height = data_config['height']
