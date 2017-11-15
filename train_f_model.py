@@ -30,6 +30,7 @@ torch.cuda.set_device(opt.gpu)
 # load data and get dataset-specific parameters
 data_config = utils.read_config('config.json').get(opt.task)
 data_config['batchsize'] = opt.batch_size
+data_config['datapath'] = '{}/{}'.format(opt.datapath, data_config['datapath'])
 opt.ncond = data_config['ncond']
 opt.npred = data_config['npred']
 opt.height = data_config['height']

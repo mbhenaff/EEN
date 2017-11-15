@@ -8,7 +8,7 @@
     "npred": 4, 
     "phi_fc_size": 36, 
     "dataloader": "data_atari",
-    "datapath": "/misc/vlgscratch4/LecunGroup/datasets/atari_data/release/breakout/"
+    "datapath": "breakout/"
   },
   "seaquest": {
     "height": 84,
@@ -19,7 +19,7 @@
     "npred": 4, 
     "phi_fc_size": 36, 
     "dataloader": "data_atari",
-    "datapath": "/misc/vlgscratch4/LecunGroup/datasets/atari_data/release/seaquest/"
+    "datapath": "seaquest/"
   }, 
   "poke": {
     "height": 240,
@@ -30,7 +30,7 @@
     "npred": 1, 
     "phi_fc_size": 225, 
     "dataloader": "data_poke", 
-    "datapath": "/misc/vlgscratch4/LecunGroup/datasets/atari_data/release/poke/data/"
+    "datapath": "poke/data/"
   },
   "flappy": {
     "height": 128,
@@ -41,7 +41,7 @@
     "npred": 4, 
     "phi_fc_size": 40, 
     "dataloader": "data_bird", 
-    "datapath": "/misc/vlgscratch4/LecunGroup/datasets/atari_data/release/flappy/"
+    "datapath": "flappy/"
   }, 
   "driving": {
     "height": 72,
@@ -52,6 +52,6 @@
     "npred": 4, 
     "phi_fc_size": 50, 
     "dataloader": "data_driving", 
-    "datapath": "/misc/vlgscratch4/LecunGroup/datasets/atari_data/release/torcs/raw/"
+    "datapath": "torcs/raw/"
   }
 }
