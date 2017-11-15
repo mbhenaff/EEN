@@ -9,11 +9,7 @@ Code to train the models described in the paper "Prediction under Uncertainty wi
 
 ### Data:
 
-We provide all the datasets in one big file which can be downloaded here:
-
-```
-url
-```
+We provide all the datasets in one big file which can be downloaded [here](<https://drive.google.com/file/d/1Dzqv39yZ691i_F17qxxkPv4QA4Gayrxl/view?usp=sharing>). 
 
 Extract it with:
 
