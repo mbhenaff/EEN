@@ -1,7 +1,13 @@
 import utils, imp, numpy
 import matplotlib.pyplot as plt
-task = 'seaquest'
-data_config = utils.read_config('config.json').get(task)
+# tester for dataloader
+parser = argparse.ArgumentParser()
+parser.add_argument('-task', type=str, default='poke', help='breakout | seaquest | flappy | poke | driving')
+parser.add_argument('-datapath', type=str, default='/misc/vlgscratch4/LecunGroup/datasets/atari_data/release/')
+opt = parser.parse_args()
+
+data_config = utils.read_config('config.json').get(opt.task)
+data_config['datapath'] = '{}/{}'.format(opt.datapath, data_config['datapath'])
 data_config['batchsize'] = 64
 ImageLoader=imp.load_source('ImageLoader', 'dataloaders/{}.py'.format(data_config.get('dataloader'))).ImageLoader
 dataloader = ImageLoader(data_config)
