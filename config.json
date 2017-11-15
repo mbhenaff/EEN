@@ -1,0 +1,57 @@
+{
+  "breakout": {
+    "height": 84,
+    "width": 84,
+    "nc": 1, 
+    "n_actions": 4, 
+    "ncond": 4, 
+    "npred": 4, 
+    "phi_fc_size": 36, 
+    "dataloader": "data_atari",
+    "datapath": "/misc/vlgscratch4/LecunGroup/datasets/atari_data/BreakoutNoFrameskip-v4/"
+  },
+  "seaquest": {
+    "height": 84,
+    "width": 84,
+    "nc": 1, 
+    "n_actions": 18, 
+    "ncond": 4, 
+    "npred": 4, 
+    "phi_fc_size": 36, 
+    "dataloader": "data_atari",
+    "datapath": "/misc/vlgscratch4/LecunGroup/datasets/atari_data/SeaquestNoFrameskip-v4/"
+  }, 
+  "poke": {
+    "height": 240,
+    "width": 240,
+    "nc": 3, 
+    "n_actions": 5, 
+    "ncond": 1, 
+    "npred": 1, 
+    "phi_fc_size": 225, 
+    "dataloader": "data_poke", 
+    "datapath": "/misc/kcgscratch1/LecunGroup/mbhenaff/poke/data/"
+  },
+  "flappy": {
+    "height": 128,
+    "width": 72,
+    "nc": 3, 
+    "n_actions": 2, 
+    "ncond": 4, 
+    "npred": 4, 
+    "phi_fc_size": 40, 
+    "dataloader": "data_bird", 
+    "datapath": "/misc/kcgscratch1/LecunGroup/mbhenaff/FlapPyBird/"
+  }, 
+  "driving": {
+    "height": 72,
+    "width": 160,
+    "nc": 3, 
+    "n_actions": 2, 
+    "ncond": 4, 
+    "npred": 4, 
+    "phi_fc_size": 50, 
+    "dataloader": "data_driving", 
+    "datapath": "/misc/kcgscratch1/LecunGroup/datasets/torcs_dataset/raw/"
+  }
+}
