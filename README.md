@@ -48,4 +48,4 @@ python visualize.py -save_dir /path/to/models/
 
 This will create a new directory for each model in the folder with the same name as the model file with '.viz' appended to it. This will contain one subfolder per set of conditioning frames, each with several generations using different z vectors. These are also saved as MP4 movie files for easier viewing. 
 
-
+Examples of generated videos using the models in the trained_models folder can be found [here](<http://mikaelhenaff.net/eenvideos.html>). 
