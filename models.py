@@ -76,7 +76,8 @@ class LatentResidualModel3Layer(nn.Module):
             nn.Linear(1000, opt.n_latent), 
             nn.Tanh()
         )
-            
+
+        # conditional network
         self.f_network_encoder = nn.Sequential(
             # layer 1
             nn.Conv2d(opt.n_in, opt.nfeature, 7, 2, 3),  
@@ -159,100 +160,6 @@ class LatentResidualModel3Layer(nn.Module):
             self.g_network_decoder.cpu()
             self.phi_network_conv.cpu()
             self.phi_network_fc.cpu()
-        else:
-            raise ValueError
-
-
-
-
-
-# this model takes the true actions as input, to make sure 
-# the architecture can make use of them
-class GroundTruthModel(nn.Module):
-    def __init__(self, opt):
-        super(GroundTruthModel, self).__init__()
-        self.opt = opt
-
-        self.encoder_state = nn.Sequential(
-            # layer 1
-            nn.Conv2d(opt.n_in, opt.nfeature, 7, 2, 3),  # 64, 36 
-            nn.BatchNorm2d(opt.nfeature),
-            nn.ReLU(True),
-            # layer 2 
-            nn.Conv2d(opt.nfeature, opt.nfeature, 5, 2, 2),  # 32, 18
-            nn.BatchNorm2d(opt.nfeature),
-            nn.ReLU(True),
-            # layer 3
-            nn.Conv2d(opt.nfeature, opt.nfeature, 5, 2, 2),  # 16, 9
-            nn.BatchNorm2d(opt.nfeature), 
-            nn.ReLU(True),
-            # layer 4
-            nn.Conv2d(opt.nfeature, opt.nfeature, 5, 2, 2),  # 16, 9
-            nn.BatchNorm2d(opt.nfeature)
-        )
-
-        # latent var (true actions)
-        # TODO: fix actions
-        self.encoder_latent = nn.Linear(opt.n_actions, 15*15*opt.latent_nfeature)  # TODO hard-coded
-        self.encoder_latent_merge = nn.Sequential(
-            nn.Conv2d(opt.latent_nfeature, opt.nfeature, 1, 1, 0),
-            nn.BatchNorm2d(opt.nfeature)
-        )
-
-        self.fusion_network = nn.Sequential(
-            # layer 1
-            nn.ConvTranspose2d(opt.nfeature, opt.nfeature, 4, 2, 1),  # 32, 18
-            nn.BatchNorm2d(opt.nfeature),
-            nn.ReLU(True),
-            # layer 2
-            nn.ConvTranspose2d(opt.nfeature, opt.nfeature, 4, 2, 1),  # 32, 18
-            nn.BatchNorm2d(opt.nfeature),
-            nn.ReLU(True),
-            # layer 3
-            nn.ConvTranspose2d(opt.nfeature, opt.nfeature, 4, 2, 1),  # 64, 36
-            nn.BatchNorm2d(opt.nfeature),
-            nn.ReLU(True),
-            # layer 4
-            nn.ConvTranspose2d(opt.nfeature, 3, 4, 2, 1)  # 128, 72
-        )
-
-
-        
-        # if enable GPU
-        self.cuda = opt.gpu == 1
-        if self.cuda:
-            self.intype("gpu")
-        else:
-            self.intype("cpu")
-        
-
-    # ultimate forward function
-    def forward(self, input, target, actions):
-        target = target.view(self.opt.batch_size, self.opt.npred, 3, self.opt.height, self.opt.width)
-        
-        input = input.view(self.opt.batch_size, self.opt.ncond*3, 
-                                               self.opt.height, self.opt.width)
-        z = self.encoder_latent(actions).view(input.size(0),
-                                                         self.opt.latent_nfeature, 15, 15)
-        z = self.encoder_latent_merge(z)
-        if self.opt.multiplicative == 0:
-            pred = self.fusion_network(self.encoder_state(input) + z)
-        else:
-            pred = self.fusion_network(self.encoder_state(input) * z)
-        
-        return pred, z
-
-    def intype(self, typ):
-        if typ == "gpu":
-            self.encoder_state.cuda()
-            self.fusion_network.cuda()
-            self.encoder_latent.cuda()
-            self.encoder_latent_merge.cuda()
-        elif typ == "cpu":
-            self.encoder_state.cpu()
-            self.fusion_network.cpu()
-            self.encoder_latent.cpu()
-            self.encoder_latent_merge.cpu()
         else:
             raise ValueError
 

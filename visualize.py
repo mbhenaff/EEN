@@ -20,7 +20,7 @@ parser.add_argument('-datapath', type=str, default='./data/')
 parser.add_argument('-save_dir', type=str,
                      default='./results/')
 opt = parser.parse_args()
-torch.cuda.set_device(opt.gpu)
+#torch.cuda.set_device(opt.gpu)
 
 # load data and get dataset-specific parameters
 data_config = utils.read_config('config.json').get(opt.task)
@@ -46,7 +46,7 @@ def load_model(mfile):
 
 # sample or load a presaved batch so that all models are evaluated on the same samples
 fname = 'data_for_viz/{}/data-ncond={}-npred={}.th'.format(opt.task, opt.ncond, opt.npred)
-if os.path.isfile(fname):
+if os.path.isfile(fname) and False:
     print('loading previous batch')
     loaded = torch.load(fname)
     cond = loaded.get('cond')
