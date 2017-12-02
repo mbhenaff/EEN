@@ -170,41 +170,10 @@ class VAE(nn.Module):
     def __init__(self, opt):
         super(VAE, self).__init__()
         self.opt = opt
-
-        # deterministic network
-        self.g_network_encoder = nn.Sequential(
-            # layer 1
-            nn.Conv2d(opt.n_in, opt.nfeature, 7, 2, 3), 
-            nn.BatchNorm2d(opt.nfeature),
-            nn.ReLU(True),
-            # layer 2
-            nn.Conv2d(opt.nfeature, opt.nfeature, 5, 2, 2), 
-            nn.BatchNorm2d(opt.nfeature),
-            nn.ReLU(True),
-            # layer 3
-            nn.Conv2d(opt.nfeature, opt.nfeature, 5, 2, 2), 
-            nn.BatchNorm2d(opt.nfeature),
-            nn.ReLU(True)
-        )
-
-
         k = 4
         if opt.task == 'breakout' or opt.task == 'seaquest':
             # need this for output to be the right size
             k = 3
-
-        self.g_network_decoder = nn.Sequential(
-            # layer 4
-            nn.ConvTranspose2d(opt.nfeature, opt.nfeature, k, 2, 1), 
-            nn.BatchNorm2d(opt.nfeature),
-            nn.ReLU(True),
-            # layer 5
-            nn.ConvTranspose2d(opt.nfeature, opt.nfeature, 4, 2, 1), 
-            nn.BatchNorm2d(opt.nfeature),
-            nn.ReLU(True),
-            # layer 6
-            nn.ConvTranspose2d(opt.nfeature, opt.n_out, 4, 2, 1) 
-        )
 
         self.q_network_conv = nn.Sequential(
             nn.Conv2d(opt.n_out, opt.nfeature, 7, 2, 3), 
@@ -315,8 +284,6 @@ class VAE(nn.Module):
             self.f_network_encoder.cuda()
             self.f_network_decoder.cuda()
             self.encoder_latent.cuda()
-            self.g_network_encoder.cuda()
-            self.g_network_decoder.cuda()
             self.q_network_conv.cuda()
             self.q_network_fc.cuda()
             self.mu_layer.cuda()
@@ -325,8 +292,6 @@ class VAE(nn.Module):
             self.f_network_encoder.cpu()
             self.f_network_decoder.cpu()
             self.encoder_latent.cpu()
-            self.g_network_encoder.cpu()
-            self.g_network_decoder.cpu()
             self.q_network_conv.cpu()
             self.q_network_fc.cpu()
             self.mu_layer.cpu()
