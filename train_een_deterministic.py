@@ -25,7 +25,9 @@ opt = parser.parse_args()
 
 torch.manual_seed(opt.seed)
 torch.set_default_tensor_type('torch.FloatTensor')
-torch.cuda.set_device(opt.gpu)
+
+if opt.gpu > 0:
+    torch.cuda.set_device(opt.gpu)
 
 
 # load data and get dataset-specific parameters
