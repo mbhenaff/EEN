@@ -12,7 +12,7 @@ import models, utils
 parser = argparse.ArgumentParser()
 parser.add_argument('-task', type=str, default='poke', help='breakout | seaquest | flappy | poke | driving')
 parser.add_argument('-seed', type=int, default=1)
-parser.add_argument('-model', type=str, default='latent-3layer')
+parser.add_argument('-model', type=str, default='vae2')
 parser.add_argument('-batch_size', type=int, default=64)
 parser.add_argument('-nfeature', type=int, default=64, help='number of feature maps')
 parser.add_argument('-n_latent', type=int, default=4, help='dimensionality of z')
@@ -21,13 +21,17 @@ parser.add_argument('-epoch_size', type=int, default=500)
 parser.add_argument('-loss', type=str, default='l2', help='l1 | l2')
 parser.add_argument('-lambda_kl', type=float, default=0.001, help='weight of KL term')
 parser.add_argument('-gpu', type=int, default=0)
+parser.add_argument('-warmstart', type=int, default=1)
 parser.add_argument('-datapath', type=str, default='/misc/vlgscratch4/LecunGroup/datasets/een_data/', help='data folder')
-parser.add_argument('-save_dir', type=str, default='/misc/vlgscratch4/LecunGroup/mbhenaff/een_vae/', help='where to save the models')
+parser.add_argument('-save_dir', type=str, default='/misc/vlgscratch4/LecunGroup/mbhenaff/een_vae_xy/', help='where to save the models')
 opt = parser.parse_args()
 
 torch.manual_seed(opt.seed)
 torch.set_default_tensor_type('torch.FloatTensor')
 torch.cuda.set_device(opt.gpu)
+
+if opt.task == 'poke':
+    opt.loss = 'l1'
 
 # load data and get dataset-specific parameters
 data_config = utils.read_config('config.json').get(opt.task)
@@ -44,8 +48,8 @@ dataloader = ImageLoader(data_config)
 
 # Set filename based on parameters
 opt.save_dir = '{}/{}/'.format(opt.save_dir, opt.task)
-opt.model_filename = '{}/model={}-loss={}-ncond={}-npred={}-nf={}-nz={}-lrt={}'.format(
-                    opt.save_dir, opt.model, opt.loss, opt.ncond, opt.npred, opt.nfeature, opt.n_latent, opt.lrt)
+opt.model_filename = '{}/model={}-loss={}-ncond={}-npred={}-nf={}-nz={}-lrt={}-warmstart={}'.format(
+                    opt.save_dir, opt.model, opt.loss, opt.ncond, opt.npred, opt.nfeature, opt.n_latent, opt.lrt, opt.warmstart)
 print("Saving to " + opt.model_filename)
 
 
@@ -68,6 +72,7 @@ def train_epoch(nsteps):
         total_loss_f += loss_f.data[0]
         loss_f.backward(retain_graph=True)
         loss_kl = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
+        loss_kl /= opt.batch_size
         total_loss_kl += loss_kl.data[0]
         # optimize
         optimizer.step()
@@ -125,7 +130,21 @@ if __name__ == '__main__':
     # build the model
     opt.n_in = opt.ncond * opt.nc
     opt.n_out = opt.npred * opt.nc
-    model = models.VAE(opt)
+    if opt.model == 'vae':
+        model = models.VAE(opt)
+    elif opt.model == 'vae2':
+        model = models.VAE2(opt)
+
+    if opt.warmstart == 1:
+        # load the baseline model and copy its weights
+        mdir = '/misc/vlgscratch4/LecunGroup/mbhenaff/een_release_results/{}/'.format(opt.task)
+        mfile = 'model=baseline-3layer-loss={}-ncond={}-npred={}-nf={}-lrt=0.0005.model'.format(opt.loss, opt.ncond, opt.npred, opt.nfeature)
+        print('initializing with baseline model: {}'.format(mdir + mfile))
+        baseline_model = torch.load(mdir + mfile).get('model')
+        model.f_network_encoder.load_state_dict(baseline_model.f_network_encoder.state_dict())
+        model.f_network_decoder.load_state_dict(baseline_model.f_network_decoder.state_dict())
+
+
     optimizer = optim.Adam(model.parameters(), opt.lrt)
 
     if opt.loss == 'l1':
